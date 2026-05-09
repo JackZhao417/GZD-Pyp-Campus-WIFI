@@ -1,7 +1,8 @@
 # 🎓 GZD-Pyp-Campus-WIFI
-> 广州职业技术大学校园网多设备验证绕过技术原理，支持同一账号无限制多设备同时在线
+> 广州多所高效多设备验证绕过技术原理，支持同一账号无限制多设备同时在线
 ---
-
+##技术  
+本人只是学习零散技术并整合测试，然后通过恩山论坛里面的大佬指引下刷好了固件，在此感谢所有开源技术的大佬们
 ## ✨ 项目背景
 我是真被这个设备验证搞烦了，最多只能一台电脑一个手机登陆同一个账号，以至于我无论如何都要攻破这一难关，在经历了九九八十一难后，我发现我一开始的方向就错了，原来是那样的简单。
 
@@ -56,7 +57,13 @@ service ua2f start
 输入service看ua2f是否正常运行
 
 <img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/d85814c4-a07a-47d1-bbc4-9204d24eca9c" />
-至此部署完毕，然后可以开启无线功能爽快地多设备连接啦（经过反复测试，开5g频段wifi反而更加稳定）  
+至此部署完毕，然后可以开启无线功能爽快地多设备连接啦（经过反复测试，只开启5g频段 wifi反而更加稳定）  
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/d6b695b9-4a30-4786-bbb6-6f7c894b031e" />
+注意：强烈建议更换一个名字，让别人以为你这是手机热点（因为你也不想被发现然后校园网来个大整顿更新吧），然后其他没特别注明的默认不要改噢，可能会烧机
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ce799251-0968-4c8a-82a4-e9f6573ef5bc" />
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ee12eb7f-69e3-417a-a5cb-8252a40af185" />
+弄好了一定要保存并应用
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/98dfaa70-c0c3-4ea7-8b44-f4bd54a9be51" />
 
 ⚠️ 免责声明
 本项目仅供学习交流使用，使用过程中请遵守学校相关网络管理规定，由此产生的一切后果由使用者自行承担。  
