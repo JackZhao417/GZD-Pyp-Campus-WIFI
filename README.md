@@ -12,12 +12,53 @@
 本人测试设备是redmi ac 2100以及xiaomi ac 2100（老生常谈的ac2100），需要自己刷入breed不死鸟，这个我不提供教程，因为这个就是个鬼门关。
 ### 部署步骤
 1.进入breed界面。按住路由器上的reset按钮，一般成功进入后路由器会闪蓝灯，然后用网线与电脑连接，在浏览器输入192.168.1.1进入breed页面
+
 2.在breed页面上点击固件更新，然后在固件那里选择文件<img width="3102" height="1189" alt="校园网技术项目GitHub页面搭建方案" src="https://github.com/user-attachments/assets/208be4a8-2d7f-40c8-8908-b3b0dcfdd784" />
+3.然后刷入initramfs-kernel文件，等待重启（务必耐心等待哦）
+4.疯狂刷新192.168.1.1页面（又或者是其他ip地址，自己ipconfig一下），直到出现这个页面（一般是没有密码直接登陆的，又或者密码是root，我也忘记了。进入后先重新设置一下root密码，随便简单一点）
+<img width="1889" height="913" alt="image" src="https://github.com/user-attachments/assets/b1db8981-174a-4143-a7f8-f7397c8ddcfb" />
+5.根据箭头步骤刷入squashfs-sysupgrade固件，<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/b2448e22-fb4c-456f-918e-709ac9d3d0c4" />
+6.然后就是反检测设置了，修改NTP时间同步服务器。添加4个：  
+ntp1.aliyun.com  
+time1.cloud.tencent.com  
+stdtime.gov.hk  
+pool.ntp.org
 
+然后保存并应用<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/986bda7d-9681-4015-a6b2-e8187f40bf11" />
+7.然后就是防火墙规则设置了，直接就是全部复制粘贴：
+#防时钟偏移检测
+iptables -t nat -N ntp_force_local
+iptables -t nat -I PREROUTING -p udp --dport 123 -j ntp_force_local
+iptables -t nat -A ntp_force_local -d 0.0.0.0/8 -j RETURN
+iptables -t nat -A ntp_force_local -d 127.0.0.0/8 -j RETURN
+iptables -t nat -A ntp_force_local -d 192.168.0.0/16 -j RETURN
+iptables -t nat -A ntp_force_local -s 192.168.0.0/16 -j DNAT --to-destination 192.168.1.1
+#修改 TTL 值
+iptables -t mangle -A POSTROUTING -j TTL --ttl-set 128 
+然后保存
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/818bc48c-05a0-45a5-ac4e-0b3b5a3704a4" />
+8.配置ua2f（UA3F其实更稳定，期望未来能看到有同学出UA3F的教程）
+输入用户名和密码（一般都是root）
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/6debcc6e-5552-4797-a377-4bab69fc5e0f" />
+然后依次输入  
 
+uci set ua2f.enabled.enabled=1  
 
+uci set ua2f.firewall.handle_fw=1  
 
+uci set ua2f.firewall.handle_intranet=1  
+
+uci commit ua2f  
+
+service ua2f start  
+
+最后就是
+输入service看ua2f是否正常运行
+
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/d85814c4-a07a-47d1-bbc4-9204d24eca9c" />
+至此部署完毕，然后可以开启无线功能爽快地多设备连接啦（经过反复测试，开5g频段wifi反而更加稳定）  
 
 ⚠️ 免责声明
-本项目仅供学习交流使用，使用过程中请遵守学校相关网络管理规定，由此产生的一切后果由使用者自行承担。
+本项目仅供学习交流使用，使用过程中请遵守学校相关网络管理规定，由此产生的一切后果由使用者自行承担。  
+
 ⭐ 如果这个项目帮到了你，欢迎点个 Star 支持！
